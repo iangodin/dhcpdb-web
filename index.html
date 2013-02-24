@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="DHCP DB">
+	<meta name="author" content="Ian Godin">
+
+	<title>Systems · DHCP</title>
+
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<link href="css/bootstrap-responsive.min.css" rel="stylesheet">
+	<link href="css/bootstrap-notify.min.css" rel="stylesheet">
+	<link href="css/mystyle.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+	<div class="navbar navbar-inverse navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container">
+				<span class="brand">DHCP DB</span> 
+				<div class="div-collapse">
+					<ul class="nav">
+						<li class="active"><a href="#hosts" data-toggle="tab">Hosts</a></li>
+						<li><a href="#options" data-toggle="tab">Options</a></li>
+						<li><a href="#leases" data-toggle="tab">Leases</a></li>
+					</ul>
+					<form class="navbar-form pull-right" id="spinner-holder" style="width: 20px; height: 36px;"></form>
+				</div>
+			</div>
+		</div>
+		<br>
+	</div>
+
+	<div class="notifications bottom-left"></div>
+
+	<div class="container tab-content">
+		<div class="tab-pane active" id="hosts"></div>
+		<div class="tab-pane" id="options"></div>
+		<div class="tab-pane" id="leases"></div>
+	</div>
+
+	<footer class="footer">
+		<p>© Ian Godin 2013</p>
+	</footer>
+
+	</div>
+
+	<script src="js/jquery.min.js"></script>
+	<script src="js/bootstrap-notify.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/spin.min.js"></script>
+	<script src="js/myscript.min.js"></script>
+
+</body></html>
+
