@@ -114,6 +114,27 @@ function reallyRemoveHost( ip_addr, it ) {
 	} );
 };
 
+function releaseLease( ip_addr, it ) {
+	$("#release_msg").html( "Releasing " + ip_addr );
+	$("#lease_delete").attr('onclick','').unbind('click');
+	$("#lease_delete").click( function() { reallyReleaseLease( ip_addr, it ); } );
+	$("#lease_confirmation").modal('show');
+}
+
+function reallyReleaseLease( ip_addr, it ) {
+	$("#lease_confirmation").modal('hide');
+	var data = {
+		ipaddress: ip_addr
+	}
+	$.post( "releaselease.php", data ).done( function( data, status, xhr ) {
+		$('.notifications').notify( { type: 'success', fadeOut: { enabled: true, delay: 10000 }, message: { text: "Lease released" } } ).show();
+		$(it).remove();
+	} ).fail( function( data, status, xhr ) {
+		$('.notifications').notify( { type: 'error', fadeOut: { enabled: false }, message: { text: data } } ).show();
+	} );
+};
+
+
 function removeOption( ip_from, ip_to, option, it ) {
 	$("#option_delete_msg").html( "Deleting " + ip_from + " - " + ip_to + " " + option );
 	$("#option_delete").attr('onclick','').unbind('click');

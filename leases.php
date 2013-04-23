@@ -7,10 +7,10 @@
 </div>
 
 <div class='row-fluid '>
-	<div class='span3'><strong>IP Address</strong></div>
+	<div class='span2'><strong>IP Address</strong></div>
 	<div class='span3'><strong>DNS Address</strong></div>
 	<div class='span3'><strong>MAC Address</strong></div>
-	<div class='span3'><strong>Expiration</strong></div>
+	<div class='span2'><strong>Expiration</strong></div>
 </div><hr/>
 
 <div id='lease_table' class='table filterable'>
@@ -28,7 +28,7 @@ foreach ( $leases as $lease )
 	$expire = date_create( $date );
 
 	echo "<div><div class='row-fluid'>";
-	echo "<div class='span3'>";
+	echo "<div class='span2'>";
 	if ( $expire < $now )
 		echo "<span class='label label-important'>Expired</span> ";
 	else
@@ -36,11 +36,29 @@ foreach ( $leases as $lease )
    	echo $ip . "</div>";
 	echo "<div class='span3'>" . $name . "</div>";
 	echo "<div class='span3' style='font-family: Fixed, monospace;'>" . $mac . "</div>";
-	echo "<div class='span3'>" . $expire->format( "M jS Y h:iA" ) . "</div>";
+	echo "<div class='span2'>" . $expire->format( "M jS Y h:iA" ) . "</div>";
+	echo "<div class='span2 btn-group pull-right'>";
+		echo "<button onclick='releaseLease( \"" . $name . "\", this.parentNode.parentNode.parentNode)' class='btn btn-danger'><i class='icon-trash'></i> Release</button>";
+	echo "</div>";
 	echo "</div><hr/></div>";
 }
 
 ?>
 
+</div>
+
+<div id="lease_confirmation" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="leaseEditorLabel" aria-hidden="true">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+		<h3 id="leaseEditorLabel">Releasing Lease</h3>
+	</div>
+	<div class="modal-body">
+		<p id="release_msg">Releasing</p>
+		<p>Are you sure?</p>
+	</div>
+	<div class="modal-footer">
+		<button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+		<button class="btn btn-danger" id="lease_delete">Release</button>
+	</div>
 </div>
 
