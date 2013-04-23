@@ -106,15 +106,12 @@ function reallyRemoveHost( ip_addr, it ) {
 	var data = {
 		ipaddress: ip_addr
 	}
-	$.post( "removehost.php", data, function(data,status,xhr) {
-		if ( xhr.status != 201 )
-			$('.notifications').notify( { type: 'error', fadeOut: { enabled: true, delay: 10000 }, message: { text: data } } ).show();
-		else
-		{
-			$('.notifications').notify( { type: 'success', fadeOut: { enabled: true, delay: 10000 }, message: { text: "Host removed" } } ).show();
-			it.remove();
-		}
-	});
+	$.post( "removehost.php", data ).done( function( data, status, xhr ) {
+		$('.notifications').notify( { type: 'success', fadeOut: { enabled: true, delay: 10000 }, message: { text: "Host removed" } } ).show();
+		it.remove();
+	} ).fail( function( data, status, xhr ) {
+		$('.notifications').notify( { type: 'error', fadeOut: { enabled: false }, message: { text: data } } ).show();
+	} );
 };
 
 function removeOption( ip_from, ip_to, option, it ) {
@@ -131,15 +128,12 @@ function reallyRemoveOption( ip_from, ip_to, option, it ) {
 		ipto: ip_to,
 		option: option
 	}
-	$.post( "removeoption.php", data, function(data,status,xhr) {
-		if ( xhr.status != 201 )
-			$('.notifications').notify( { type: 'error', fadeOut: { enabled: true, delay: 10000 }, message: { text: data } } ).show();
-		else
-		{
-			$('.notifications').notify( { type: 'success', fadeOut: { enabled: true, delay: 10000 }, message: { text: "Option removed" } } ).show();
-			it.remove();
-		}
-	});
+	$.post( "removeoption.php", data ).done( function( data, status, xhr ) {
+		$('.notifications').notify( { type: 'success', fadeOut: { enabled: true, delay: 10000 }, message: { text: "Option removed" } } ).show();
+		it.remove();
+	} ).fail( function( data, status, xhr ) {
+		$('.notifications').notify( { type: 'error', fadeOut: { enabled: false }, message: { text: data } } ).show();
+	} );
 };
 
 function saveHostEditor( it ) {
@@ -149,22 +143,19 @@ function saveHostEditor( it ) {
 		ipaddress: $("#host_ipaddress").val(),
 		macaddress: $("#host_macaddress").val()
 	}
-	$.post( "edithost.php", data, function(data,status,xhr) {
-		if ( xhr.status != 201 )
-			$('.notifications').notify( { type: 'error', fadeOut: { enabled: true, delay: 10000 }, message: { text: data } } ).show();
+	$.post( "edithost.php", data ).done ( function( data, status, xhr ) {
+		if ( it )
+		{
+			$('.notifications').notify( { type: 'success', fadeOut: { enabled: true, delay: 10000 }, message: { text: "Host edited" } } ).show();
+			$(it).replaceWith( data );
+		}
 		else
 		{
-			if ( it )
-			{
-				$('.notifications').notify( { type: 'success', fadeOut: { enabled: true, delay: 10000 }, message: { text: "Host edited" } } ).show();
-				$(it).replaceWith( data );
-			}
-			else
-			{
-				$('.notifications').notify( { type: 'success', fadeOut: { enabled: true, delay: 10000 }, message: { text: "Host added" } } ).show();
-				$('#host_table').append( data );
-			}
+			$('.notifications').notify( { type: 'success', fadeOut: { enabled: true, delay: 10000 }, message: { text: "Host added" } } ).show();
+			$('#host_table').append( data );
 		}
+	} ).fail( function( data, status, xhr ) {
+		$('.notifications').notify( { type: 'error', fadeOut: { enabled: false }, message: { text: data } } ).show();
 	} );
 };
 
@@ -175,14 +166,11 @@ function saveOptionEditor() {
 		ipto: $("#option_ipto").val(),
 		option: $("#option_option").val()
 	}
-	$.post( "addoption.php", data, function(data,status,xhr) {
-		if ( xhr.status != 201 )
-			$('.notifications').notify( { type: 'error', fadeOut: { enabled: true, delay: 10000 }, message: { text: data } } ).show();
-		else
-		{
-			$('.notifications').notify( { type: 'success', fadeOut: { enabled: true, delay: 10000 }, message: { text: "Host added" } } ).show();
-			$('#option_table').append( data );
-		}
+	$.post( "addoption.php", data ).done( function( data, status, xhr ) {
+		$('.notifications').notify( { type: 'success', fadeOut: { enabled: true, delay: 10000 }, message: { text: "Host added" } } ).show();
+		$('#option_table').append( data );
+	} ).fail( function( data, status, xhr ) {
+		$('.notifications').notify( { type: 'error', fadeOut: { enabled: true, delay: 10000 }, message: { text: data } } ).show();
 	} );
 };
 
