@@ -108,7 +108,7 @@ function reallyRemoveHost( ip_addr, it ) {
 	}
 	$.post( "removehost.php", data ).done( function( data, status, xhr ) {
 		$('.notifications').notify( { type: 'success', fadeOut: { enabled: true, delay: 10000 }, message: { text: "Host removed" } } ).show();
-		it.remove();
+		$(it).remove();
 	} ).fail( function( data, status, xhr ) {
 		$('.notifications').notify( { type: 'error', fadeOut: { enabled: false }, message: { text: data } } ).show();
 	} );
@@ -151,7 +151,7 @@ function reallyRemoveOption( ip_from, ip_to, option, it ) {
 	}
 	$.post( "removeoption.php", data ).done( function( data, status, xhr ) {
 		$('.notifications').notify( { type: 'success', fadeOut: { enabled: true, delay: 10000 }, message: { text: "Option removed" } } ).show();
-		it.remove();
+		$(it).remove();
 	} ).fail( function( data, status, xhr ) {
 		$('.notifications').notify( { type: 'error', fadeOut: { enabled: false }, message: { text: data } } ).show();
 	} );
